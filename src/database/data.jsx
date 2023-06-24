@@ -1,4 +1,4 @@
-const forumData = {
+export const forumData = {
     accountId: '98767-888-78767',
     username: 'tanaypratap',
     name: 'Tanay Pratap',

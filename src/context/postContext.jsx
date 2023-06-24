@@ -1,17 +1,17 @@
 import { createContext, useContext, useState } from "react"
-import forumData from "../database/data"
+import { forumData } from "../database/data"
 
-const ForumContext = createContext({ forumData: forumData });
-
-
-
+export const ForumContext = createContext();
 
 export const ForumProvider = ({ children }) => {
-    const [forumData, setForumData] = useState();
-
-    return <ForumContext.Provider value={{ forumData, setForumData }}>
+    const [allForumData, setAllForumData] = useState(forumData);
+    const getPostData = (id) => {
+        let posts = allForumData.posts.filter((post) => post.postId === id);
+        return posts[0];
+    }
+    return <ForumContext.Provider value={{ getPostData, allForumData, setAllForumData }}>
         {children}
     </ForumContext.Provider>
 }
 
-export const useForum = useContext(ForumContext);
+export const useForum = () => useContext(ForumContext);
