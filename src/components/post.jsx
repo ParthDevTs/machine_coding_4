@@ -4,19 +4,19 @@ import { useForum } from '../context/postContext';
 
 function Post({ main_post }) {
     const navigate = useNavigate();
-    const { bookMarkPost } = useForum();
+    const { bookMarkPost, voteHandler } = useForum();
     const { postId, username, picUrl, post, postDescription, upvotes, tags, isBookmarked } = main_post;
     return (
         <li className="flex w-[600px] gap-8 bg-white p-4">
             <div className="upvoteSide w-[20px]">
-                <button className="up__button text-indigo-700">
+                <button onClick={() => voteHandler(postId, "upvote")} className="up__button text-indigo-700">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
                         <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm.53 5.47a.75.75 0 00-1.06 0l-3 3a.75.75 0 101.06 1.06l1.72-1.72v5.69a.75.75 0 001.5 0v-5.69l1.72 1.72a.75.75 0 101.06-1.06l-3-3z" clip-rule="evenodd" />
                     </svg>
 
                 </button>
                 <p>{upvotes}</p>
-                <button className="downvote text-indigo-700">
+                <button onClick={() => voteHandler(postId, "downvote")} className="downvote text-indigo-700">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
                         <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-.53 14.03a.75.75 0 001.06 0l3-3a.75.75 0 10-1.06-1.06l-1.72 1.72V8.25a.75.75 0 00-1.5 0v5.69l-1.72-1.72a.75.75 0 00-1.06 1.06l3 3z" clip-rule="evenodd" />
                     </svg>
