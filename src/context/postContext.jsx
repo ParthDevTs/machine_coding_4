@@ -9,7 +9,11 @@ export const ForumProvider = ({ children }) => {
         let posts = allForumData.posts.filter((post) => post.postId === id);
         return posts[0];
     }
-    return <ForumContext.Provider value={{ getPostData, allForumData, setAllForumData }}>
+    const bookMarkPost = (postId) => {
+        let updatedPosts = allForumData.posts.map(post => post.postId === postId ? { ...post, isBookmarked: !post.isBookmarked } : post);
+        setAllForumData({ ...allForumData, posts: updatedPosts });
+    }
+    return <ForumContext.Provider value={{ getPostData, allForumData, setAllForumData, bookMarkPost }}>
         {children}
     </ForumContext.Provider>
 }

@@ -1,11 +1,12 @@
 import { useParams } from "react-router-dom"
 import { useForum } from "../context/postContext";
-import { forumData } from "../database/data"
+
+import Comments from "../components/comments";
 export const SinglePost = () => {
     const { id } = useParams();
-    const { allForumData, getPostData } = useForum();
+    const { getPostData, bookMarkPost } = useForum();
     const selectedPost = getPostData(id)
-    const { postId, username, picUrl, post, postDescription, upvotes, tags, isBookmarked } = selectedPost;
+    const { postId, username, picUrl, post, postDescription, upvotes, tags, isBookmarked, comments } = selectedPost;
 
     return <div className="singlePostPage w-full h-[screen] py-12 flex items-center justify-center bg-[#f1f1f1]">
         <div className="flex w-[600px]  gap-8 bg-white p-4">
@@ -47,12 +48,17 @@ export const SinglePost = () => {
                             <path stroke-linecap="round" stroke-linejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z" />
                         </svg>
                     </button>
-                    <button style={{ color: isBookmarked ? "red" : "" }} className="hover:text-indigo-300 transition">
+                    <button onClick={() => bookMarkPost(postId)} style={{ color: isBookmarked ? "red" : "" }} className="hover:text-indigo-300 transition">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z" />
                         </svg>
                     </button>
 
+                </div>
+                <div className="comments__area">
+                    {comments.map((comment) => {
+                        return <Comments usercomment={comment} mainUser={username} />
+                    })}
                 </div>
             </div>
         </div>
